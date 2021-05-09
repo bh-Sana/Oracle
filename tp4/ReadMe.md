@@ -23,12 +23,15 @@
 ```sql
 ---
 A/  
+
 CREATE USER dev1 IDENTIFIED BY dev1;
 CREATE USER dev2 IDENTIFIED BY dev2;
 B/
+
 CREATE USER tester1 IDENTIFIED BY tester1;
 CREATE USER  tester2 IDENTIFIED BY  tester2;
 C/
+
 CREATE USER devsecops1  IDENTIFIED BY devsecops1;
 CREATE USER devsecops2 IDENTIFIED BY devsecops2;
 
@@ -65,7 +68,8 @@ TO dev1;
    - **Révoquer tous les privilèges associès à l'utilisateur dev1 :** 
 
 ```sql
----REVOKE 
+---
+REVOKE 
 CREATE PROCEDURE ,
 CREATE VIEW ,
 CREATE SEQUENCE ,
@@ -98,7 +102,10 @@ FROM dev1;
      C) Le rôle de l'équipe DevSecOps permet d'avoir tous les privilèges avec mode administrateur de la base:  
 
 ```sql
----A/ CREATE ROLE Dev ;
+---
+A/ 
+CREATE ROLE Dev ;
+
 GRANT 
 CREATE PROCEDURE ,
 CREATE VIEW ,
@@ -112,7 +119,10 @@ TO Dev;
 
 ```
 ```sql
----B/CREATE ROLE Test ;
+---
+B/
+CREATE ROLE Test ;
+
 GRANT 
 CONNECT,
 CREATE SESSION ,
@@ -121,7 +131,10 @@ TO Test;
 
 ```
 ```sql
----C/ CREATE ROLE DevSecOps;
+---
+C/ 
+CREATE ROLE DevSecOps;
+
 Grant DBA TO DevSecOps WITH ADMIN OPTION ;
 
 ```
@@ -133,17 +146,20 @@ Grant DBA TO DevSecOps WITH ADMIN OPTION ;
   
 
 ```sql
----GRANT Dev TO dev1 ;
+---
+   GRANT Dev TO dev1 ;
    GRANT Dev TO dev2 ;
 
 ```
 ```sql
----GRANT  Test TO tester1 ;
+---
+   GRANT  Test TO tester1 ;
    GRANT  Test TO tester2 ;
 
 ```
 ```sql
----GRANT DevSecOps TO  devsecops1 ;
+---
+   GRANT DevSecOps TO  devsecops1 ;
    GRANT DevSecOps TO  devsecops2 ;
 
 ```
@@ -152,11 +168,13 @@ Grant DBA TO DevSecOps WITH ADMIN OPTION ;
   
 
 ```sql
---- GRANT  SELECT ON emp TO tester1;
+--- 
+    GRANT  SELECT ON emp TO tester1;
 ```
 
  ```sql
----GRANT SELECT ON emp TO tester2;
+---
+    GRANT SELECT ON emp TO tester2;
 
 ```
  
@@ -166,7 +184,8 @@ Grant DBA TO DevSecOps WITH ADMIN OPTION ;
   
 
  ```sql
----GRANT SELECT ON emp TO public ;
+---
+   GRANT SELECT ON emp TO public ;
 ```
 
 **Retirer les privilèges attribuées aux admins, ainsi que les utilisateurs qui ont reçu leurs privilèges sur la table EMP par un membre de l'équipe devsecops:**
@@ -174,7 +193,8 @@ Grant DBA TO DevSecOps WITH ADMIN OPTION ;
  
  
 ```sql
---- revoke dba from  DevSecOps;
+--- 
+   revoke dba from  DevSecOps;
 ```
 
 
@@ -192,7 +212,8 @@ Grant DBA TO DevSecOps WITH ADMIN OPTION ;
 
 
 ```sql 
----CREATE PROFILE profile_developpeur LIMIT
+---
+CREATE PROFILE profile_developpeur LIMIT
 SESSIONS_PER_USER UNLIMITED 
 CPU_PER_SESSION 10000 
 CPU_PER_CALL 1000 
@@ -219,7 +240,8 @@ PASSWORD_REUSE_MAX  10 ;
   * ***Durée de vie en jours du mot de passe:*** ***60***
   * ***Nombre maximal de réutilisations de mot de passe:*** ***10***
 ```sql 
----CREATE PROFILE profile_testeur LIMIT
+---
+CREATE PROFILE profile_testeur LIMIT
 SESSIONS_PER_USER 5
 CPU_PER_SESSION UNLIMITED
 CPU_PER_CALL 3000 
@@ -244,7 +266,8 @@ PASSWORD_REUSE_MAX  10 ;
   * ***Nombre maximal de réutilisations de mot de passe:*** ***10***
 
 ```sql 
----CREATE PROFILE profile_devsecops LIMIT
+---
+CREATE PROFILE profile_devsecops LIMIT
 SESSIONS_PER_USER UNLIMITED
 CPU_PER_SESSION UNLIMITED
 CPU_PER_CALL 3000 
@@ -259,6 +282,7 @@ PASSWORD_REUSE_MAX  10 ;
 
   - **Attribuer à l'utilisateur "dev1", le profile qui lui correspond:** 
 ```sql
----ALTER USER dev1 PROFILE profile_developpeur;
+---
+ALTER USER dev1 PROFILE profile_developpeur;
 ```
 
