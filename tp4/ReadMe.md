@@ -23,18 +23,17 @@
 ```sql
 ---
 A/  
-
 CREATE USER dev1 IDENTIFIED BY dev1;
 CREATE USER dev2 IDENTIFIED BY dev2;
-B/
 
+B/
 CREATE USER tester1 IDENTIFIED BY tester1;
 CREATE USER  tester2 IDENTIFIED BY  tester2;
-C/
 
+C/
 CREATE USER devsecops1  IDENTIFIED BY devsecops1;
 CREATE USER devsecops2 IDENTIFIED BY devsecops2;
-
+---
 ```
   --->  **Une fois qu'un utilisateur est créé, le DBA peut octroyer des privilèges de système spécifiques à cet utilisateur.**
  
@@ -59,7 +58,7 @@ SELECT ANY TABLE ,
 UPDATE ANY TABLE,
 DROP ANY TABLE  
 TO dev1;
-
+---
 ```
 
 ¤   **Une fois qu'un utilisateur est créé, le DBA peut octroyer des privilèges de système spécifiques à cet utilisateur.**
@@ -79,7 +78,7 @@ SELECT ANY TABLE ,
 UPDATE ANY TABLE,
 DROP ANY TABLE  
 FROM dev1;
-
+---
 ```
 
  
@@ -116,7 +115,7 @@ SELECT ANY TABLE ,
 UPDATE ANY TABLE,
 DROP ANY TABLE  
 TO Dev;
-
+---
 ```
 ```sql
 ---
@@ -128,7 +127,7 @@ CONNECT,
 CREATE SESSION ,
 SELECT ANY TABLE 
 TO Test;
-
+---
 ```
 ```sql
 ---
@@ -136,7 +135,7 @@ C/
 CREATE ROLE DevSecOps;
 
 Grant DBA TO DevSecOps WITH ADMIN OPTION ;
-
+---
 ```
 
 
@@ -149,19 +148,19 @@ Grant DBA TO DevSecOps WITH ADMIN OPTION ;
 ---
    GRANT Dev TO dev1 ;
    GRANT Dev TO dev2 ;
-
+---
 ```
 ```sql
 ---
    GRANT  Test TO tester1 ;
    GRANT  Test TO tester2 ;
-
+---
 ```
 ```sql
 ---
    GRANT DevSecOps TO  devsecops1 ;
    GRANT DevSecOps TO  devsecops2 ;
-
+---
 ```
 
    - **Limiter l'accès pour les testeurs de sorte qu'ils n'accèdent qu'à la table des employés "EMP":** 
@@ -170,12 +169,13 @@ Grant DBA TO DevSecOps WITH ADMIN OPTION ;
 ```sql
 --- 
     GRANT  SELECT ON emp TO tester1;
+---
 ```
 
  ```sql
 ---
     GRANT SELECT ON emp TO tester2;
-
+---
 ```
  
  
@@ -186,6 +186,7 @@ Grant DBA TO DevSecOps WITH ADMIN OPTION ;
  ```sql
 ---
    GRANT SELECT ON emp TO public ;
+---
 ```
 
 **Retirer les privilèges attribuées aux admins, ainsi que les utilisateurs qui ont reçu leurs privilèges sur la table EMP par un membre de l'équipe devsecops:**
@@ -195,6 +196,7 @@ Grant DBA TO DevSecOps WITH ADMIN OPTION ;
 ```sql
 --- 
    revoke dba from  DevSecOps;
+---
 ```
 
 
@@ -223,6 +225,7 @@ LOGICAL_READS_PER_CALL 1000
 PRIVATE_SGA 25K
 PASSWORD_LIFE_TIME 60
 PASSWORD_REUSE_MAX  10 ;
+---
 
 ```
 
@@ -251,6 +254,7 @@ LOGICAL_READS_PER_CALL 1000
 PRIVATE_SGA 25K
 PASSWORD_LIFE_TIME 60
 PASSWORD_REUSE_MAX  10 ;
+---
 
 ```
 
@@ -277,6 +281,7 @@ LOGICAL_READS_PER_CALL 5000
 PRIVATE_SGA 80K
 PASSWORD_LIFE_TIME 60
 PASSWORD_REUSE_MAX  10 ;
+---
 
 ```
 
@@ -284,5 +289,6 @@ PASSWORD_REUSE_MAX  10 ;
 ```sql
 ---
 ALTER USER dev1 PROFILE profile_developpeur;
+---
 ```
 
